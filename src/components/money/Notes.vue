@@ -4,8 +4,8 @@
        
       <span class="name">{{textName}}</span>
       <input type="text"
-            @input="changeInput"
-             v-model="value"
+            @input="changeInput($event.target.value)"
+             :value="value"
              placeholder="在这里输入备注">
     </label>
   </div>
@@ -16,10 +16,10 @@
   import {Component,Prop} from 'vue-property-decorator';
   @Component
   export default class Notes extends Vue {
+    @Prop({default:''})    readonly  value!:string
     @Prop({required:true})  readonly filename!: string
     @Prop({required:true})  readonly placeholder!: string
     textName: string=this.filename
-    value = '';
     changeInput(ev: InputEvent) {
         console.log('input变化了')
         const target = ev.target as HTMLTextAreaElement;

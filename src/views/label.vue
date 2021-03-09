@@ -9,7 +9,7 @@
                    :to="`/label/tag/${tag.id}`">
                    <span>{{tag.name}}</span>
                 
-                   <svgIcon class="svg" name="left"></svgIcon>
+                   <svgIcon class="svg" name="right"></svgIcon>
       </router-link>
         
         
