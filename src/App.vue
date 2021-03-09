@@ -1,18 +1,16 @@
 <template>
   <div id="app">
-    <div id="nav" v-for="item in routerArray" :key="item">
-      <router-link :to="'/'+`${item}`">{{item}}</router-link> |
-     
-    </div>
     <router-view/>
   </div>
 </template>
 
 <script lang="ts">
+import "@/assets/style/helper.scss";
+import "@/assets/style/reset.scss";
 export default {
   data(){
     return {
-      routerArray:['label','record','statistics']
+      routerArray:['label','money','statistics']
     }
   },
  
@@ -21,9 +19,11 @@ export default {
 
 </script>
 <style lang="scss">
+
 *{
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  text-decoration: none;
 }
 </style>

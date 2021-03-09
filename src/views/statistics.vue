@@ -1,7 +1,10 @@
 <template>
-  <div>
-      这是staisst
-  </div>
+<div>
+
+  <Layout>
+       statistics.vue
+    </Layout>
+</div>
 </template>
 
 <script>
