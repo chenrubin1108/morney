@@ -10,7 +10,11 @@
     <Notes @update:value="NotesValue"
           filename="备注"
           placeholder="在这里输入备注"/>
-    <Tags :dataSource.sync="tags" @update:fuck="selectTag" />
+          <!-- :dataSource.sync="tags" -->
+           <!-- @update:dataSource="createTag"
+          :dataSource="tags" -->
+    <Tags
+          @update:fuck="selectTag" />
   </Layout>
 </template>
 
@@ -24,7 +28,7 @@
 import taglistmodel from '@/taglistmodel'
 //  JSON.parse(window.localStorage.getItem('Recorddatasummer')||'[]')  
 const Recorddatasummer= model.fetch()
-const taglist=taglistmodel.fetch()
+
 window.localStorage.setItem('version','0.0.1')
 
 @Component({
@@ -35,7 +39,7 @@ window.localStorage.setItem('version','0.0.1')
 
   export default class Money extends Vue {
     name= 'Money'
-    tags=taglist
+    tags=window.taglist
     Recorddatasummer: DataSummer[]=Recorddatasummer 
     datasummer: DataSummer={
       tags:[],
@@ -46,6 +50,7 @@ window.localStorage.setItem('version','0.0.1')
     created(){
       console.log(taglistmodel.fetch())
     }
+    
     selectTag(item: string[]){
       this.datasummer.tags=item
       console.log(this.datasummer)
@@ -70,7 +75,7 @@ window.localStorage.setItem('version','0.0.1')
     @Watch
     ('Recorddatasummer')
     onRecorddatasummerChange(){
-      model.save(this.Recorddatasummer)
+      model.save()
     }
     
   }  

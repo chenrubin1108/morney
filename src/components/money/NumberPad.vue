@@ -57,6 +57,7 @@
         
         this.$emit('update:value',this.output)
         this.$emit('submit',this.output)
+        window.alert('记录数据成功')
     }
   }
 </script>

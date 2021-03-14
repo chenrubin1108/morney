@@ -9,13 +9,18 @@
           <Notes 
           filename="标签名"
           placeholder="请输入标签"
+          :value="tag.name"
+          @input.native="editNote"
           ></Notes>
 
       </div>
+       <div class="button-wrapper">
+      <buttontag @click.native="remove">删除标签</buttontag>
+    </div>
   </layout>
 </template>
 
-<script>
+<script lang="ts">
 
 import Layout from '@/components/Layout.vue'
  import { Vue, Component } from 'vue-property-decorator'
@@ -28,17 +33,37 @@ import Layout from '@/components/Layout.vue'
   }
 })
 export default class Taglabel extends Vue {
+    tag?:{ id:String,name:String}=undefined
     name="Taglabel"
- created(){
-     const id=this.$route.params.id
+     id=this.$route.params.id
+     tags=taglistmodel.data
+  created(){  
     taglistmodel.fetch()
-    const tags=taglistmodel.data;
-    const tag=tags.filter(item=>item.id===id)[0]
+    const tag=this.tags.filter(item=>item.id===this.id)[0]
     if(tag){
-        console.log('exist tag')
+       this.tag=tag
+        console.log(tag.name)
     }else {
         this.$router.push('/404')
     }
+ }
+  remove() {
+    console.log('1')
+      if (this.tag) {
+        console.log('2')
+        if (taglistmodel.remove(this.id)) {
+          this.$router.back();
+        } else {
+          window.alert('删除失败');
+        }
+      }
+    }
+  editNote(ev:InputEvent){
+    
+      let val=(ev.target as HTMLTextAreaElement).value
+       const na=this.tags.filter(item=>item.id===this.id)[0]
+      taglistmodel.edit(this.id,val)
+     
  }
 
 }

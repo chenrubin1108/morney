@@ -4,7 +4,7 @@
        
       <span class="name">{{textName}}</span>
       <input type="text"
-            @input="changeInput($event.target.value)"
+            @input="changeInput($event)"
              :value="value"
              placeholder="在这里输入备注">
     </label>
@@ -21,8 +21,8 @@
     @Prop({required:true})  readonly placeholder!: string
     textName: string=this.filename
     changeInput(ev: InputEvent) {
-        console.log('input变化了')
-        const target = ev.target as HTMLTextAreaElement;
+       
+        const target = (ev.target as HTMLTextAreaElement);
 
             this.$emit('update:value',target.value)
     }

@@ -30,13 +30,18 @@
 
 <script>
 // @ is an alias to /src
-import { Vue, Component} from 'vue-property-decorator'
+import { Vue, Component,Inject} from 'vue-property-decorator'
 import taglistmodel from '@/taglistmodel'
 
 @Component
 export default class Label extends Vue {
+   @Inject()  reload
   name='Label'
-  tags=taglistmodel.fetch()
+  // taglistmodel.fetch()
+  tags=window.taglist
+  beforecreate(){
+    taglistmodel.fetch()
+  }
   createTag(){
 
     const name=window.prompt('请输入标签名')
@@ -44,7 +49,9 @@ export default class Label extends Vue {
       window.alert('标签吗不能为空')
       return
     }
+      
      if(taglistmodel.create(name)==='success'){
+       this.reload()
         window.alert('创建成功')
      }
      else if(taglistmodel.create(name)==='fail'){

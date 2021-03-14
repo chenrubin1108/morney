@@ -1,10 +1,13 @@
 const localStorageKeyname='Recorddatasummer'
 const model={
+    data:[] as DataSummer[],
     fetch(){
-       return JSON.parse(window.localStorage.getItem(localStorageKeyname) || '[]')  as DataSummer[];
+        return   this.data=JSON.parse(window.localStorage.getItem(localStorageKeyname) || '[]')  as DataSummer[];
+      
     },
-    save(data: DataSummer[]){
-        window.localStorage.setItem(localStorageKeyname,JSON.stringify(data))
+  
+    save(){
+        window.localStorage.setItem(localStorageKeyname,JSON.stringify(this.data))
     },
     clone(data: DataSummer[] | DataSummer) {
         return JSON.parse(JSON.stringify(data));

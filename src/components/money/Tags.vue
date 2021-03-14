@@ -17,11 +17,12 @@
 <script lang="ts">
   import Vue from 'vue';
   import {Component, Prop} from 'vue-property-decorator';
-
+  import taglistmodel from '@/taglistmodel'
 
   @Component
   export default class Tags extends Vue {
-    @Prop() readonly dataSource: string[] | undefined;
+    // @Prop({required:true}) readonly dataSource!: string[] 
+    dataSource=taglistmodel.fetch()
     selectedTags: string[] = [];
     toggle(tag: string) {
       const index = this.selectedTags.indexOf(tag);
@@ -35,15 +36,24 @@
        this.$emit('update:fuck',this.selectedTags)
     }
     create() {
+        //  this.$emit('update:dataSource',
+        //   [...this.dataSource, name]);
+        
       const name = window.prompt('请输入标签名');
-      if (name === '') {
+      if (!name ) {
         window.alert('标签名不能为空');
-      } else if (this.dataSource) {
-        //   dataSource 是外部的数据，不能在本组件修改
-    
-        this.$emit('update:dataSource',
-          [...this.dataSource, name]);
       }
+      else{
+        taglistmodel.create(name)
+        window.alert('创建成功')
+      }
+      // } else if (this.dataSource) {
+        
+      //   //   dataSource 是外部的数据，不能在本组件修改
+      //   // this.$emit('add',name)
+      //   this.$emit('update:dataSource',name);
+      
+      // }
      
     }
   }
